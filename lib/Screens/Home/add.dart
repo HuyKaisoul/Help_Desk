@@ -6,13 +6,14 @@ import 'package:Help_Desk/constrain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 
-
 class AddScreen extends StatefulWidget {
   @override
   _AddScreenState createState() => _AddScreenState();
 }
 
 class _AddScreenState extends State<AddScreen> {
+  String base64Image;
+
   File imageFile;
   _openGallary(BuildContext context) async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -42,19 +43,34 @@ class _AddScreenState extends State<AddScreen> {
     });
   }
 
-  Future upload() async {
-    final uri = Uri.parse("");
+  upload(String fileName) async {
+    http.post('http://finenut.in/demo/uploadData.php', body: {
+      "image": base64Image,
+      "address": addressController.text,
+      "descrip": descripController.text,
+      "title": titleController.text,
+      "username": await FlutterSession().get("username"),
+    });
+  }
+
+  Future uploadImage() async {
+    final uri = Uri.parse(
+        "http://helpdesksolutionszz.000webhostapp.com/ConnectPHP/upload.php");
     var request = http.MultipartRequest('POST', uri);
-    request.fields['username'] = await FlutterSession().get("username")
+    request.fields['username'] = await FlutterSession().get("username");
     request.fields['address'] = addressController.text;
     request.fields['descrip'] = descripController.text;
     request.fields['title'] = titleController.text;
     var pic = await http.MultipartFile.fromPath("image", imageFile.path);
     request.files.add(pic);
     var response = await request.send();
+    final respStr = await response.stream.bytesToString();
     if (response.statusCode == 200) {
-      print("Image Uploaded");
+      print('Image Uploded....................' + respStr);
+    } else {
+      print('Image Not Uploded');
     }
+    setState(() {});
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {
@@ -229,7 +245,7 @@ class _AddScreenState extends State<AddScreen> {
                               bottom: 10, top: 20, left: 40),
                           child: RaisedButton(
                             onPressed: () {
-                              upload();
+                              uploadImage();
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50.0)),
