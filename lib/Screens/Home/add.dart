@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:image_picker/image_picker.dart';
@@ -6,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:Help_Desk/constrain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
-import 'package:path/path.dart' as path;
 
 class AddScreen extends StatefulWidget {
   @override
@@ -45,19 +43,34 @@ class _AddScreenState extends State<AddScreen> {
     });
   }
 
-  upload() async {
-    base64Image = base64Encode(imageFile.readAsBytesSync());
-    final response = await http.post(
-        'http://helpdesksolutionszz.000webhostapp.com/ConnectPHP/upload.php',
-        body: {
-          "image": base64Image,
-          "address": addressController.text,
-          "descrip": descripController.text,
-          "title": titleController.text,
-          "username": await FlutterSession().get("username"),
-          "name": path.basename(imageFile.path),
-        });
-    print(response.body);
+  upload(String fileName) async {
+    http.post('http://finenut.in/demo/uploadData.php', body: {
+      "image": base64Image,
+      "address": addressController.text,
+      "descrip": descripController.text,
+      "title": titleController.text,
+      "username": await FlutterSession().get("username"),
+    });
+  }
+
+  Future uploadImage() async {
+    final uri = Uri.parse(
+        "http://helpdesksolutionszz.000webhostapp.com/ConnectPHP/upload.php");
+    var request = http.MultipartRequest('POST', uri);
+    request.fields['username'] = await FlutterSession().get("username");
+    request.fields['address'] = addressController.text;
+    request.fields['descrip'] = descripController.text;
+    request.fields['title'] = titleController.text;
+    var pic = await http.MultipartFile.fromPath("image", imageFile.path);
+    request.files.add(pic);
+    var response = await request.send();
+    final respStr = await response.stream.bytesToString();
+    if (response.statusCode == 200) {
+      print('Image Uploded....................' + respStr);
+    } else {
+      print('Image Not Uploded');
+    }
+    setState(() {});
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {
@@ -232,7 +245,7 @@ class _AddScreenState extends State<AddScreen> {
                               bottom: 10, top: 20, left: 40),
                           child: RaisedButton(
                             onPressed: () {
-                              upload();
+                              uploadImage();
                             },
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50.0)),
