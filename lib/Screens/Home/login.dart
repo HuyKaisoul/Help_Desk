@@ -1,9 +1,11 @@
+import 'package:Help_Desk/Screens/Home/tech.dart';
 import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/straintion/right_left.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
+import 'admin.dart';
 import 'employee.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,14 +31,24 @@ class _LoginScreenState extends State<LoginScreen> {
           "username": userController.text,
           "password": passController.text,
         });
-    if (response.body == "Login Success") {
+
+    if (response.body == "Username or Password wrong") {
+      userController.clear();
+      passController.clear();
+      signInCheck();
+    } else if (response.body == "0") {
       var session = FlutterSession();
       await session.set("username", userController.text);
       Navigator.push(context, SlideRightRoute(page: Employee()));
-    } else {
-      _checkPass = _checkUser = true;
+    } else if (response.body == "1") {
+      var session = FlutterSession();
+      await session.set("username", userController.text);
+      Navigator.push(context, SlideRightRoute(page: Tech()));
+    } else if (response.body == "2") {
+      var session = FlutterSession();
+      await session.set("username", userController.text);
+      Navigator.push(context, SlideRightRoute(page: Admin()));
     }
-    ;
   }
 
   @override
@@ -61,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Row(
-                    children: [
+                    children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                         child: Container(

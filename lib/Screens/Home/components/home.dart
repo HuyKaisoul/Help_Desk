@@ -2,12 +2,12 @@ import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:flutter/material.dart';
 
-import 'detail.dart';
+import '../detail.dart';
 
-class CustomListView extends StatelessWidget {
+class Home extends StatelessWidget {
   final List<Report> report;
 
-  CustomListView(this.report);
+  Home(this.report);
 
   Widget build(context) {
     return Column(
@@ -162,15 +162,15 @@ class CustomListView extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(height: 5.0),
                   Container(
-                    width: 40.0,
+                    width: 60.0,
                     height: 20.0,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.red,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      'NEW',
+                      'Complete',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.0,
