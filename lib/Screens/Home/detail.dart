@@ -44,7 +44,7 @@ class _SecondScreenState extends State<SecondScreen> {
               ),
               Padding(
                 child: new Text(
-                  'Solution : ${widget.value.solve}',
+                  'Solution : ${widget.value.solution}',
                   style: new TextStyle(fontWeight: FontWeight.bold),
                   textAlign: TextAlign.left,
                 ),

@@ -43,16 +43,6 @@ class _AddScreenState extends State<AddScreen> {
     });
   }
 
-  upload(String fileName) async {
-    http.post('http://finenut.in/demo/uploadData.php', body: {
-      "image": base64Image,
-      "address": addressController.text,
-      "descrip": descripController.text,
-      "title": titleController.text,
-      "username": await FlutterSession().get("username"),
-    });
-  }
-
   Future uploadImage() async {
     final uri = Uri.parse(
         "http://helpdesksolutionszz.000webhostapp.com/ConnectPHP/upload.php");
@@ -64,13 +54,25 @@ class _AddScreenState extends State<AddScreen> {
     var pic = await http.MultipartFile.fromPath("image", imageFile.path);
     request.files.add(pic);
     var response = await request.send();
-    final respStr = await response.stream.bytesToString();
     if (response.statusCode == 200) {
-      print('Image Uploded....................' + respStr);
+      showDialog(
+          context: context,
+          builder: (context) {
+            Future.delayed(Duration(seconds: 3), () {
+              Navigator.of(context).pop(true);
+            });
+            return AlertDialog(
+              content: Row(
+                children: <Widget>[
+                  Text("Successful"),
+                  Icon(Icons.check_circle, color: Colors.green),
+                ],
+              ),
+            );
+          });
     } else {
       print('Image Not Uploded');
     }
-    setState(() {});
   }
 
   Future<void> _showChoiceDialog(BuildContext context) {

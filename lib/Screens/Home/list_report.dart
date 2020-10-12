@@ -1,7 +1,8 @@
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:Help_Desk/report/detail/request.dart';
 import 'package:flutter/material.dart';
-import 'package:Help_Desk/Screens/Home/home.dart';
+
+import 'components/home.dart';
 
 class ListRP extends StatelessWidget {
   @override
@@ -17,7 +18,8 @@ class ListRP extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Report> reports = snapshot.data;
-            return new CustomListView(reports);
+
+            return new Home(reports);
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
           }

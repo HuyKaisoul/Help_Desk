@@ -7,7 +7,8 @@ const kPrimaryHighLight = Color(0xFFc8c5c5);
 
 const kPrimaryStart = Color(0xFF806ef0);
 const kPrimaryEnd = Color(0xFF00c5fc);
-const kPrimaryNone = Color(0x00000000);
+
 const kPrimaryGray = Color(0xfff0ede9);
 
 const kPrimaryBlue = Color(0xffbacbf7);
+const Color kPrimaryNone = Color(0x00000000);
