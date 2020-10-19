@@ -5,14 +5,16 @@ class ListNot extends StatelessWidget {
   final List<NotificationRB> notifi;
 
   ListNot(this.notifi);
-  String getText(String status) {
+  String getText(int status) {
     String temp;
-    if (status == '0') {
+    if (status == 0) {
       temp = ('Your report  was Posted');
-    } else if (status == '1') {
-      temp = 'Your report was Solved';
+    } else if (status == 1) {
+      temp = 'Your report was Approved';
+    } else if (status == 2) {
+      temp = 'Your report was Processing';
     } else {
-      temp = 'Your report was Complete';
+      temp = 'Your report was Fixed';
     }
     return temp;
   }

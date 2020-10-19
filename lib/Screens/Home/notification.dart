@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:Help_Desk/Screens/Home/components/list_notifi.dart';
 import 'package:Help_Desk/Screens/Home/employee.dart';
 import 'package:Help_Desk/constrain.dart';
@@ -16,7 +18,7 @@ class Notifi extends StatefulWidget {
 class _State extends State<Notifi> {
   Future<NotificationRB> _notifi() async {
     final response = await http.post(
-        "http://helpdesksolutionszz.000webhostapp.com/ConnectPHP/updatenot.php",
+        "http://helpdesksolutionszz.000webhostapp.com/api/updatenot",
         body: {
           "username": await FlutterSession().get("username"),
         });

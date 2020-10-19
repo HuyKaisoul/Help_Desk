@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Help_Desk/Screens/Home/add.dart';
 import 'package:Help_Desk/Screens/Home/components/home.dart';
 import 'package:Help_Desk/Screens/Home/components/search_current.dart';
@@ -22,6 +24,21 @@ class Employee extends StatefulWidget {
 }
 
 class _State extends State<Employee> {
+  Future<List<NotificationRB>> _future;
+  @override
+  void initState() {
+    super.initState();
+    setUpTimedFetch();
+  }
+
+  setUpTimedFetch() {
+    Timer.periodic(Duration(milliseconds: 5000), (timer) {
+      setState(() {
+        _future = notification();
+      });
+    });
+  }
+
   final List<Widget> _children = [
     ListRP(),
     AddScreen(),
@@ -93,7 +110,7 @@ class _State extends State<Employee> {
                         padding: const EdgeInsets.all(0.0),
                         child: Center(
                           child: new FutureBuilder<List<NotificationRB>>(
-                            future: notification(),
+                            future: _future,
                             //we pass a BuildContext and an AsyncSnapshot object which is an
                             //Immutable representation of the most recent interaction with
                             //an asynchronous computation.
@@ -102,7 +119,7 @@ class _State extends State<Employee> {
                                 List<NotificationRB> notifis = snapshot.data;
                                 List<NotificationRB> notificheck = [];
                                 notifis.forEach((element) {
-                                  if (element.checkey.contains('0'))
+                                  if (element.checkey == 0)
                                     notificheck.add(element);
                                 });
                                 return new Text(

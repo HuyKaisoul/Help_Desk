@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'admin.dart';
 import 'employee.dart';
 
@@ -25,28 +26,35 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _checkUser = false;
 
   Future<List> _login() async {
-    final response = await http.post(
-        "http://helpdesksolutionszz.000webhostapp.com/ConnectPHP/login.php",
-        body: {
-          "username": userController.text,
-          "password": passController.text,
-        });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    if (response.body == "Username or Password wrong") {
+    final response = await http
+        .post("http://helpdesksolutionszz.000webhostapp.com/api/report", body: {
+      "username": userController.text,
+      "password": passController.text,
+    });
+    print(response.body);
+    if (response.body == '999') {
       userController.clear();
       passController.clear();
       signInCheck();
     } else if (response.body == "0") {
+      prefs?.setString("isLoggedIn", '0');
       var session = FlutterSession();
       await session.set("username", userController.text);
+      await session.set("type", 0);
       Navigator.push(context, SlideRightRoute(page: Employee()));
     } else if (response.body == "1") {
+      prefs?.setString("isLoggedIn", '1');
       var session = FlutterSession();
       await session.set("username", userController.text);
+      await session.set("type", 1);
       Navigator.push(context, SlideRightRoute(page: Tech()));
     } else if (response.body == "2") {
+      prefs?.setString("isLoggedIn", '2');
       var session = FlutterSession();
       await session.set("username", userController.text);
+      await session.set("type", 2);
       Navigator.push(context, SlideRightRoute(page: Admin()));
     }
   }

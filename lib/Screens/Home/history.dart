@@ -1,10 +1,10 @@
 import 'package:Help_Desk/Screens/Home/components/person.dart';
 import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
-import 'package:Help_Desk/report/detail/request.dart';
+import 'package:Help_Desk/report/detail/request_tech.dart';
 import 'package:flutter/material.dart';
 
-class MyRP extends StatelessWidget {
+class ListRP_Tech extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Center(
@@ -18,7 +18,7 @@ class MyRP extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "My Report",
+                    "History",
                     style: TextStyle(
                         fontFamily: 'Acme',
                         fontWeight: FontWeight.bold,
@@ -55,6 +55,7 @@ class MyRP extends StatelessWidget {
                     ),
                   );
                 }
+                //return  a circular progress indicator.
               },
             ),
           )

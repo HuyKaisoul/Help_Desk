@@ -1,12 +1,13 @@
-import 'package:Help_Desk/Screens/Home/detail.dart';
-import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
 
-class Person extends StatelessWidget {
-  final List<Report> report;
+import 'detailMess.dart';
 
-  Person(this.report);
+class Mess extends StatelessWidget {
+  final List<Messages> mess;
+
+  Mess(this.mess);
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +16,9 @@ class Person extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20.0),
         child: Container(
           child: ListView.builder(
-            itemCount: report.length,
+            itemCount: mess.length,
             itemBuilder: (context, int currentIndex) {
-              return listViewReport(report[currentIndex], context);
+              return listViewReport(mess[currentIndex], context);
             },
           ),
         ),
@@ -27,29 +28,31 @@ class Person extends StatelessWidget {
 
   Color getColor(int status) {
     if (status == 0) {
-      return Colors.red;
-    } else if (status == 1) {
       return Colors.blue;
-    } else if (status == 2) {
-      return kPrimaryBlue;
-    } else {
-      return Colors.green;
-    }
-  }
-
-  String getText(int status) {
-    if (status == 0) {
-      return 'Posted';
     } else if (status == 1) {
-      return 'Approved';
-    } else if (status == 2) {
-      return 'Processing';
+      return Colors.green;
     } else {
-      return 'Fixed';
+      return Colors.red;
     }
   }
 
-  Widget listViewReport(Report report, BuildContext context) {
+  Future<String> getText(int status, String username) async {
+    String checkname = await FlutterSession().get("username");
+    if (status == 0) {
+      if (username == checkname) {
+        return ': Me';
+      } else {
+        return ': Employee';
+      }
+    } else if (status == 1) {
+      return ': Technical';
+    } else {
+      return ': Admin';
+    }
+  }
+
+  String text = "";
+  Widget listViewReport(Messages mess, BuildContext context) {
     return new ListTile(
       title: new Card(
         elevation: 10.0,
@@ -67,18 +70,14 @@ class Person extends StatelessWidget {
             children: <Widget>[
               Row(
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: 35.0,
-                    backgroundImage: NetworkImage(report.imageUrl),
-                  ),
                   SizedBox(width: 10.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.35,
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: Text(
-                          report.title,
+                          mess.date,
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 15.0,
@@ -91,7 +90,7 @@ class Person extends StatelessWidget {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.35,
                         child: Text(
-                          report.description,
+                          mess.containts,
                           style: TextStyle(
                             color: Colors.blueGrey,
                             fontSize: 15.0,
@@ -111,18 +110,27 @@ class Person extends StatelessWidget {
                     width: 70.0,
                     height: 20.0,
                     decoration: BoxDecoration(
-                      color: getColor(report.status),
+                      color: getColor(mess.user_type),
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      getText(report.status),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: FutureBuilder(
+                        future: getText(mess.user_type, mess.username),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData)
+                            return Text(
+                              snapshot.data,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
+                          return Container(
+                            width: 0.0,
+                            height: 0.0,
+                          );
+                        }),
                   ),
                 ],
               ),
@@ -135,7 +143,7 @@ class Person extends StatelessWidget {
         //A MaterialPageRoute is a modal route that replaces the entire
         //screen with a platform-adaptive transition.
         var route = new MaterialPageRoute(
-          builder: (BuildContext context) => new SecondScreen(value: report),
+          builder: (BuildContext context) => new MessTail(value: mess),
         );
         //A Navigator is a widget that manages a set of child widgets with
         //stack discipline.It allows us navigate pages.

@@ -1,10 +1,10 @@
 import 'package:Help_Desk/Screens/Home/components/person.dart';
 import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
-import 'package:Help_Desk/report/detail/request.dart';
+import 'package:Help_Desk/report/detail/request_tech.dart';
 import 'package:flutter/material.dart';
 
-class MyRP extends StatelessWidget {
+class Process extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Center(
@@ -18,7 +18,7 @@ class MyRP extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "My Report",
+                    "Processing",
                     style: TextStyle(
                         fontFamily: 'Acme',
                         fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ class MyRP extends StatelessWidget {
           ),
           Container(
             child: new FutureBuilder<List<Report>>(
-              future: downloadJSONMyReport(),
+              future: downloadJSONProcess(),
               //we pass a BuildContext and an AsyncSnapshot object which is an
               //Immutable representation of the most recent interaction with
               //an asynchronous computation.
@@ -55,6 +55,7 @@ class MyRP extends StatelessWidget {
                     ),
                   );
                 }
+                //return  a circular progress indicator.
               },
             ),
           )

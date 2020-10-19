@@ -10,5 +10,5 @@ const kPrimaryEnd = Color(0xFF00c5fc);
 
 const kPrimaryGray = Color(0xfff0ede9);
 
-const kPrimaryBlue = Color(0xffbacbf7);
+const kPrimaryBlue = Color(0xff85aaf2);
 const Color kPrimaryNone = Color(0x00000000);
