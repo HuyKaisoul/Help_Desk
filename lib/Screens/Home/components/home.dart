@@ -162,15 +162,15 @@ class Home extends StatelessWidget {
                 children: <Widget>[
                   SizedBox(height: 5.0),
                   Container(
-                    width: 60.0,
+                    width: 70.0,
                     height: 20.0,
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Colors.green,
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      'Complete',
+                      'Fixed',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.0,

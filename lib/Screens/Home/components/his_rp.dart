@@ -3,10 +3,10 @@ import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:flutter/material.dart';
 
-class Person extends StatelessWidget {
+class HistRP extends StatelessWidget {
   final List<Report> report;
 
-  Person(this.report);
+  HistRP(this.report);
 
   @override
   Widget build(BuildContext context) {

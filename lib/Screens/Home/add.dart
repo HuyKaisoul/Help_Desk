@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:image_picker/image_picker.dart';
@@ -44,8 +45,8 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   Future uploadImage() async {
-    final uri = Uri.parse(
-        "http://helpdesksolutionszz.000webhostapp.com/ConnectPHP/upload.php");
+    final uri =
+        Uri.parse("http://helpdesksolutionszz.000webhostapp.com/api/upreport");
     var request = http.MultipartRequest('POST', uri);
     request.fields['username'] = await FlutterSession().get("username");
     request.fields['address'] = addressController.text;
@@ -71,7 +72,21 @@ class _AddScreenState extends State<AddScreen> {
             );
           });
     } else {
-      print('Image Not Uploded');
+      showDialog(
+          context: context,
+          builder: (context) {
+            Future.delayed(Duration(seconds: 3), () {
+              Navigator.of(context).pop(true);
+            });
+            return AlertDialog(
+              content: Row(
+                children: <Widget>[
+                  Text("Fail"),
+                  Icon(Icons.check_circle, color: Colors.green),
+                ],
+              ),
+            );
+          });
     }
   }
 
