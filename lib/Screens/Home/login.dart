@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final response = await http
-        .post("http://helpdesksolutionszz.000webhostapp.com/api/report", body: {
+        .post("http://192.168.2.24/LoginRegister/public/api/report", body: {
       "username": userController.text,
       "password": passController.text,
     });

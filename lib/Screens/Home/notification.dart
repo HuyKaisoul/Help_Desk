@@ -21,11 +21,10 @@ class _State extends State<Notifi> {
   Future<NotificationRB> _notifi() async {
     var type = await FlutterSession().get("username");
 
-    final response = await http.post(
-        "http://helpdesksolutionszz.000webhostapp.com/api/updatenot",
-        body: {
-          "username": await FlutterSession().get("username"),
-        });
+    final response = await http
+        .post("http://192.168.2.24/LoginRegister/public/api/updatenot", body: {
+      "username": await FlutterSession().get("username"),
+    });
     if (type == '0') {
       Navigator.push(context, SlideRightRoute(page: Employee()));
     } else if (type == '1') {
