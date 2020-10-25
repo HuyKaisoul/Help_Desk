@@ -1,11 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:Help_Desk/constrain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AddScreen extends StatefulWidget {
   @override
@@ -42,11 +42,12 @@ class _AddScreenState extends State<AddScreen> {
         print('No image selected.');
       }
     });
+    Navigator.of(context).pop();
   }
 
   Future uploadImage() async {
     final uri =
-        Uri.parse("http://helpdesksolutionszz.000webhostapp.com/api/upreport");
+        Uri.parse("http://192.168.2.24/LoginRegister/public/api/upreport");
     var request = http.MultipartRequest('POST', uri);
     request.fields['username'] = await FlutterSession().get("username");
     request.fields['address'] = addressController.text;
@@ -65,7 +66,7 @@ class _AddScreenState extends State<AddScreen> {
             return AlertDialog(
               content: Row(
                 children: <Widget>[
-                  Text("Successful"),
+                  Text("success".tr().toString()),
                   Icon(Icons.check_circle, color: Colors.green),
                 ],
               ),
@@ -81,7 +82,7 @@ class _AddScreenState extends State<AddScreen> {
             return AlertDialog(
               content: Row(
                 children: <Widget>[
-                  Text("Fail"),
+                  Text("fail".tr().toString()),
                   Icon(Icons.check_circle, color: Colors.green),
                 ],
               ),
@@ -95,14 +96,14 @@ class _AddScreenState extends State<AddScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Make a Choice"),
+          title: Text("makechoise".tr().toString()),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: GestureDetector(
-                    child: Text("Gallary"),
+                    child: Text("gallary".tr().toString()),
                     onTap: () {
                       _openGallary(context);
                     },
@@ -111,7 +112,7 @@ class _AddScreenState extends State<AddScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: GestureDetector(
-                    child: Text("Camera"),
+                    child: Text("camera".tr().toString()),
                     onTap: () {
                       _openCamera(context);
                     },
@@ -137,7 +138,7 @@ class _AddScreenState extends State<AddScreen> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
-                  "Add Report",
+                  "AddRP".tr().toString(),
                   style: TextStyle(
                     fontFamily: 'Acme',
                     fontWeight: FontWeight.bold,
@@ -175,7 +176,7 @@ class _AddScreenState extends State<AddScreen> {
                       child: TextField(
                         controller: titleController,
                         decoration: InputDecoration(
-                            labelText: "Title",
+                            labelText: "title".tr().toString(),
                             labelStyle: TextStyle(fontFamily: 'Acme')),
                       ),
                     ),
@@ -185,7 +186,7 @@ class _AddScreenState extends State<AddScreen> {
                         controller: descripController,
                         maxLines: 4,
                         decoration: InputDecoration(
-                          labelText: "Decription",
+                          labelText: "descrip".tr().toString(),
                           fillColor: Colors.white,
                           border: new OutlineInputBorder(
                             borderRadius: new BorderRadius.circular(25.0),
@@ -199,7 +200,7 @@ class _AddScreenState extends State<AddScreen> {
                       child: TextField(
                         controller: addressController,
                         decoration: InputDecoration(
-                            labelText: "Addrees",
+                            labelText: "address".tr().toString(),
                             labelStyle: TextStyle(fontFamily: 'Acme')),
                       ),
                     ),
@@ -240,8 +241,8 @@ class _AddScreenState extends State<AddScreen> {
                                       child: Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             0, 6, 0, 6),
-                                        child: const Text(
-                                          'Image',
+                                        child: Text(
+                                          'image'.tr().toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontFamily: 'Acme',
@@ -287,8 +288,8 @@ class _AddScreenState extends State<AddScreen> {
                                 child: Padding(
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 6, 0, 6),
-                                  child: const Text(
-                                    'Send',
+                                  child: Text(
+                                    'send'.tr().toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontFamily: 'Acme',
@@ -313,7 +314,7 @@ class _AddScreenState extends State<AddScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             imageFile == null
-                                ? Text('No image selected.')
+                                ? Text('noimage'.tr().toString())
                                 : Image.file(
                                     imageFile,
                                     width: 300,

@@ -3,6 +3,7 @@ import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:Help_Desk/report/detail/request_tech.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ListRP_Tech extends StatelessWidget {
   @override
@@ -18,7 +19,7 @@ class ListRP_Tech extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "History",
+                    "history".tr().toString(),
                     style: TextStyle(
                         fontFamily: 'Acme',
                         fontWeight: FontWeight.bold,

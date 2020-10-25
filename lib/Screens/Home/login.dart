@@ -8,6 +8,7 @@ import 'package:flutter_session/flutter_session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'admin.dart';
 import 'employee.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -86,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                         child: Container(
                           child: Text(
-                            "Welcome ",
+                            "welcome".tr().toString(),
                             style: TextStyle(
                               fontFamily: 'Acme',
                               fontWeight: FontWeight.bold,
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                         child: Container(
                           child: Text(
-                            "to",
+                            "to".tr().toString(),
                             style: TextStyle(
                               fontFamily: 'Acme',
                               fontWeight: FontWeight.bold,
@@ -136,9 +137,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person, color: kPrimaryWhite),
-                        errorText:
-                            _checkUser ? "User Name is Wrong " : _errorUser,
-                        labelText: "User Name",
+                        errorText: _checkUser
+                            ? "userwrong".tr().toString()
+                            : _errorUser,
+                        labelText: "username".tr().toString(),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: kPrimaryWhite),
                         ),
@@ -167,9 +169,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: !checkshow,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.lock, color: kPrimaryWhite),
-                            errorText:
-                                _checkPass ? "Password is Wrong " : _errorPass,
-                            labelText: "Password",
+                            errorText: _checkPass
+                                ? "passwrong".tr().toString()
+                                : _errorPass,
+                            labelText: "password".tr().toString(),
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: kPrimaryWhite),
                             ),
@@ -225,8 +228,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           alignment: Alignment.center,
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
-                            child: const Text(
-                              'LOGIN',
+                            child: Text(
+                              'login'.tr().toString(),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Acme',

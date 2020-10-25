@@ -7,14 +7,14 @@ import 'package:Help_Desk/Screens/Home/tech.dart';
 import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/straintion/right_left.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter_session/flutter_session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoadScreens extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return Load();
-  }
+  Load createState() => Load();
 }
 
 class Load extends State<LoadScreens> {
@@ -86,7 +86,7 @@ class Load extends State<LoadScreens> {
                         fontFamily: 'Acme')),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text('desin by',
+                  child: Text('design'.tr().toString(),
                       style: TextStyle(
                           color: kPrimaryWhite,
                           fontSize: 12,

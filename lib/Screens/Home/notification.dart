@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:Help_Desk/Screens/Home/components/list_notifi.dart';
 import 'package:Help_Desk/Screens/Home/employee.dart';
+import 'package:Help_Desk/Screens/Home/tech.dart';
 import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:Help_Desk/report/detail/request.dart';
@@ -9,6 +10,7 @@ import 'package:Help_Desk/straintion/left_right.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
+import 'package:easy_localization/easy_localization.dart';
 
 class Notifi extends StatefulWidget {
   @override
@@ -17,12 +19,18 @@ class Notifi extends StatefulWidget {
 
 class _State extends State<Notifi> {
   Future<NotificationRB> _notifi() async {
+    var type = await FlutterSession().get("username");
+
     final response = await http.post(
         "http://helpdesksolutionszz.000webhostapp.com/api/updatenot",
         body: {
           "username": await FlutterSession().get("username"),
         });
-    Navigator.push(context, SlideRightRoute(page: Employee()));
+    if (type == '0') {
+      Navigator.push(context, SlideRightRoute(page: Employee()));
+    } else if (type == '1') {
+      Navigator.push(context, SlideRightRoute(page: Tech()));
+    } else {}
   }
 
   @override
@@ -30,18 +38,20 @@ class _State extends State<Notifi> {
     return Scaffold(
       appBar: AppBar(
         title: Container(
-            child: Row(
-          children: <Widget>[
-            IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () {
-                  _notifi();
-                }),
-            Text("Notifitcation"),
-          ],
-        )),
+          child: Row(
+            children: <Widget>[
+              IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
+                  onPressed: () {
+                    _notifi();
+                  }),
+              Text("notifitcation".tr().toString()),
+            ],
+          ),
+        ),
         automaticallyImplyLeading: false,
       ),
+      backgroundColor: kPrimaryBlue,
       body: Center(
         child: Column(
           children: <Widget>[
@@ -52,18 +62,16 @@ class _State extends State<Notifi> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "My Notifitcation",
+                      "mynot".tr().toString(),
                       style: TextStyle(
                           fontFamily: 'Acme',
                           fontWeight: FontWeight.bold,
-                          color: kPrimaryEnd,
                           fontSize: 30),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Icon(
                         Icons.notification_important,
-                        color: kPrimaryEnd,
                         size: 30,
                       ),
                     ),

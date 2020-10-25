@@ -6,8 +6,7 @@ import 'head_contain.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Report>> downloadJSON() async {
-  final jsonEndpoint =
-      "http://helpdesksolutionszz.000webhostapp.com/api/retrieve";
+  final jsonEndpoint = "http://192.168.2.24/LoginRegister/public/api/retrieve";
 
   final response = await http.get(jsonEndpoint);
 
@@ -19,8 +18,7 @@ Future<List<Report>> downloadJSON() async {
 }
 
 Future<List<Report>> downloadJSONMyReport() async {
-  final jsonEndpoint =
-      "http://helpdesksolutionszz.000webhostapp.com/api/myreport";
+  final jsonEndpoint = "http://192.168.2.24/LoginRegister/public/api/myreport";
 
   final response = await http.post(jsonEndpoint, body: {
     "username": await FlutterSession().get("username"),
@@ -34,7 +32,7 @@ Future<List<Report>> downloadJSONMyReport() async {
 
 Future<List<NotificationRB>> notification() async {
   final jsonEndpoint =
-      "http://helpdesksolutionszz.000webhostapp.com/api/notification";
+      "http://192.168.2.24/LoginRegister/public/api/notification";
 
   final response = await http.post(
     jsonEndpoint,
@@ -50,8 +48,7 @@ Future<List<NotificationRB>> notification() async {
 }
 
 Future<List<Messages>> messages(int id) async {
-  final jsonEndpointwww =
-      "http://helpdesksolutionszz.000webhostapp.com/api/mess";
+  final jsonEndpointwww = "http://192.168.2.24/LoginRegister/public/api/mess";
   var bodyEncoded = json.encode(id);
   final responsess = await http.post(jsonEndpointwww, body: {
     "id": bodyEncoded,

@@ -2,6 +2,7 @@ import 'package:Help_Desk/Screens/Home/detail.dart';
 import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class HistRP extends StatelessWidget {
   final List<Report> report;
@@ -39,13 +40,13 @@ class HistRP extends StatelessWidget {
 
   String getText(int status) {
     if (status == 0) {
-      return 'Posted';
+      return 'posted'.tr().toString();
     } else if (status == 1) {
-      return 'Approved';
+      return 'approved'.tr().toString();
     } else if (status == 2) {
-      return 'Processing';
+      return 'processing'.tr().toString();
     } else {
-      return 'Fixed';
+      return 'fixed'.tr().toString();
     }
   }
 

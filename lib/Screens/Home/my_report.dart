@@ -3,6 +3,7 @@ import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:Help_Desk/report/detail/request.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MyRP extends StatelessWidget {
   @override
@@ -18,18 +19,16 @@ class MyRP extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "My Report",
+                    "myRP".tr().toString(),
                     style: TextStyle(
                         fontFamily: 'Acme',
                         fontWeight: FontWeight.bold,
-                        color: kPrimaryEnd,
                         fontSize: 30),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Icon(
                       Icons.report_gmailerrorred_outlined,
-                      color: kPrimaryEnd,
                       size: 30,
                     ),
                   ),

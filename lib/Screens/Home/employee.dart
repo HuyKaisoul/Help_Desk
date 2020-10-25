@@ -6,14 +6,17 @@ import 'package:Help_Desk/Screens/Home/components/search_current.dart';
 import 'package:Help_Desk/Screens/Home/list_report.dart';
 import 'package:Help_Desk/Screens/Home/my_report.dart';
 import 'package:Help_Desk/Screens/Home/notification.dart';
+import 'package:Help_Desk/Screens/Home/setting.dart';
 import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:Help_Desk/report/detail/request.dart';
 import 'package:Help_Desk/straintion/right_left.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_bottom_navigation_bar/gradient_bottom_navigation_bar.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_session/flutter_session.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class Employee extends StatefulWidget {
   final List<Report> report;
@@ -32,7 +35,7 @@ class _State extends State<Employee> {
   }
 
   setUpTimedFetch() {
-    Timer.periodic(Duration(milliseconds: 5000), (timer) {
+    Timer.periodic(Duration(milliseconds: 2000), (timer) {
       setState(() {
         _future = notification();
       });
@@ -43,6 +46,7 @@ class _State extends State<Employee> {
     ListRP(),
     AddScreen(),
     MyRP(),
+    Setting(),
   ];
   int _page = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
@@ -71,7 +75,7 @@ class _State extends State<Employee> {
                     hintStyle: TextStyle(
                       fontFamily: 'Acme',
                     ),
-                    hintText: "Search...",
+                    hintText: "search".tr().toString(),
                     prefixIcon: Icon(Icons.search, color: kPrimaryWhite),
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: kPrimaryNone),
@@ -156,22 +160,49 @@ class _State extends State<Employee> {
                   colors: <Color>[kPrimaryEnd, kPrimaryStart])),
         ),
       ),
+      backgroundColor: kPrimaryBlue,
       body: _children[_page],
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: kPrimaryWhite,
-        color: kPrimaryColor,
-        key: _bottomNavigationKey,
-        items: <Widget>[
-          Icon(Icons.home, size: 30, color: kPrimaryWhite),
-          Icon(Icons.add_circle, size: 30, color: kPrimaryWhite),
-          Icon(Icons.person, size: 30, color: kPrimaryWhite),
-          Icon(Icons.settings, size: 30, color: kPrimaryWhite),
-        ],
+      bottomNavigationBar: GradientBottomNavigationBar(
+        backgroundColorStart: kPrimaryStart,
+        backgroundColorEnd: kPrimaryEnd,
+        fixedColor: kPrimaryWhite,
+        currentIndex: _page,
         onTap: (index) {
           setState(() {
             _page = index;
           });
         },
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text(
+              "home".tr().toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_circle),
+            title: Text(
+              "add".tr().toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            title: Text(
+              "report".tr().toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            title: Text(
+              "setting".tr().toString(),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
       ),
     );
   }

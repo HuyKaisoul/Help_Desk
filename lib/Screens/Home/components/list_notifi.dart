@@ -1,22 +1,35 @@
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 class ListNot extends StatelessWidget {
   final List<NotificationRB> notifi;
 
   ListNot(this.notifi);
-  String getText(int status) {
-    String temp;
-    if (status == 0) {
-      temp = ('Your report  was Posted');
-    } else if (status == 1) {
-      temp = 'Your report was Approved';
-    } else if (status == 2) {
-      temp = 'Your report was Processing';
-    } else {
-      temp = 'Your report was Fixed';
-    }
-    return temp;
+
+  Future<String> getNotifi(int status) async {
+    String type = await FlutterSession().get("type");
+    print(status);
+    if (type == '0') {
+      if (status == 0) {
+        return "notifipost".tr().toString();
+      } else if (status == 1) {
+        return 'notifiapp'.tr().toString();
+      } else if (status == 2) {
+        return 'notifipro'.tr().toString();
+      } else {
+        return 'notififix'.tr().toString();
+      }
+    } else if (type == '1') {
+      if (status == 1) {
+        return 'notifiapptech'.tr().toString();
+      } else if (status == 2) {
+        return 'notifiprotech'.tr().toString();
+      } else {
+        return 'notififixtech'.tr().toString();
+      }
+    } else {}
   }
 
   @override
@@ -63,19 +76,29 @@ class ListNot extends StatelessWidget {
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: Row(
                             children: <Widget>[
-                              Text(
-                                // "Your report [" +
-                                //     notifi.post_id +
-                                //     "] was " +
-                                //     getText(notifi.status),
-                                // "haaaaaaaaahaaaaaaaaaaaaaaaaaaa",
-                                getText(notifi.status),
-                                style: TextStyle(
-                                  color: Colors.blueGrey,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                overflow: TextOverflow.ellipsis,
+                              FutureBuilder(
+                                future: getNotifi(notifi.status),
+                                builder: (context, snapshot) {
+                                  print(snapshot.data);
+                                  if (snapshot.hasData) {
+                                    return Text(
+                                      // "Your report [" +
+                                      //     notifi.post_id +
+                                      //     "] was " +
+                                      //     getText(notifi.status),
+                                      // "haaaaaaaaahaaaaaaaaaaaaaaaaaaa",
+                                      snapshot.data,
+                                      style: TextStyle(
+                                        color: Colors.blueGrey,
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    );
+                                  } else {
+                                    return Container();
+                                  }
+                                },
                               ),
                             ],
                           )),
