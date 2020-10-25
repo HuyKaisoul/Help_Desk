@@ -1,7 +1,7 @@
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'detailMess.dart';
 
 class Mess extends StatelessWidget {
@@ -40,14 +40,14 @@ class Mess extends StatelessWidget {
     String checkname = await FlutterSession().get("username");
     if (status == 0) {
       if (username == checkname) {
-        return ': Me';
+        return 'me'.tr().toString();
       } else {
-        return ': Employee';
+        return 'employee'.tr().toString();
       }
     } else if (status == 1) {
-      return ': Technical';
+      return 'tech'.tr().toString();
     } else {
-      return ': Admin';
+      return 'admin'.tr().toString();
     }
   }
 

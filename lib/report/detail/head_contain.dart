@@ -39,8 +39,7 @@ class Report {
       create: jsonData['createreport'].toString(),
       solve: jsonData['solve'],
       completed: jsonData['completed'],
-      imageUrl: "http://helpdesksolutionszz.000webhostapp.com/File/File_img/" +
-          jsonData['image'],
+      imageUrl: "http://192.168.2.24/public/File/File_img/" + jsonData['image'],
     );
   }
 }

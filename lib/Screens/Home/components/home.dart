@@ -1,7 +1,7 @@
 import 'package:Help_Desk/constrain.dart';
 import 'package:Help_Desk/report/detail/head_contain.dart';
 import 'package:flutter/material.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../detail.dart';
 
 class Home extends StatelessWidget {
@@ -28,7 +28,7 @@ class Home extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Search current',
+                            'searchCR'.tr().toString(),
                             style: TextStyle(
                               color: kPrimaryGray,
                               fontSize: 18.0,
@@ -170,7 +170,7 @@ class Home extends StatelessWidget {
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      'Fixed',
+                      'fixed'.tr().toString(),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12.0,
