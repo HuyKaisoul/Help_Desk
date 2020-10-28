@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:Help_Desk/Screens/Home/components/list_notifi.dart';
 import 'package:Help_Desk/Screens/Home/employee.dart';
 import 'package:Help_Desk/Screens/Home/tech.dart';
@@ -19,17 +17,57 @@ class Notifi extends StatefulWidget {
 
 class _State extends State<Notifi> {
   Future<NotificationRB> _notifi() async {
-    var type = await FlutterSession().get("username");
+    int type = await FlutterSession().get("type");
 
-    final response = await http
-        .post("http://192.168.2.24/LoginRegister/public/api/updatenot", body: {
+    final response = await http.post(url + "api/updatenot", body: {
       "username": await FlutterSession().get("username"),
     });
-    if (type == '0') {
+    if (type == 0) {
       Navigator.push(context, SlideRightRoute(page: Employee()));
-    } else if (type == '1') {
+    } else if (type == 1) {
       Navigator.push(context, SlideRightRoute(page: Tech()));
     } else {}
+  }
+
+  Future<NotificationRB> _clear() async {
+    int type = await FlutterSession().get("type");
+
+    final response = await http.post(url + "api/clearnot", body: {
+      "username": await FlutterSession().get("username"),
+    });
+    if (response.body == '0') {
+      showDialog(
+          context: context,
+          builder: (context) {
+            Future.delayed(Duration(seconds: 3), () {
+              Navigator.of(context).pop(true);
+            });
+            return AlertDialog(
+              content: Row(
+                children: <Widget>[
+                  Text("success".tr().toString()),
+                  Icon(Icons.check_circle, color: Colors.green),
+                ],
+              ),
+            );
+          });
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            Future.delayed(Duration(seconds: 3), () {
+              Navigator.of(context).pop(true);
+            });
+            return AlertDialog(
+              content: Row(
+                children: <Widget>[
+                  Text("fail".tr().toString()),
+                  Icon(Icons.check_circle, color: Colors.green),
+                ],
+              ),
+            );
+          });
+    }
   }
 
   @override
@@ -38,6 +76,7 @@ class _State extends State<Notifi> {
       appBar: AppBar(
         title: Container(
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
                   icon: Icon(Icons.arrow_back_ios),
@@ -45,6 +84,11 @@ class _State extends State<Notifi> {
                     _notifi();
                   }),
               Text("notifitcation".tr().toString()),
+              IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    _clear();
+                  }),
             ],
           ),
         ),

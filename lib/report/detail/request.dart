@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:Help_Desk/constrain.dart';
 import 'package:flutter_session/flutter_session.dart';
 
 import 'head_contain.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Report>> downloadJSON() async {
-  final jsonEndpoint = "http://192.168.2.24/LoginRegister/public/api/retrieve";
+  final jsonEndpoint = url + "api/retrieve";
 
   final response = await http.get(jsonEndpoint);
 
@@ -18,7 +19,7 @@ Future<List<Report>> downloadJSON() async {
 }
 
 Future<List<Report>> downloadJSONMyReport() async {
-  final jsonEndpoint = "http://192.168.2.24/LoginRegister/public/api/myreport";
+  final jsonEndpoint = url + "api/myreport";
 
   final response = await http.post(jsonEndpoint, body: {
     "username": await FlutterSession().get("username"),
@@ -31,8 +32,7 @@ Future<List<Report>> downloadJSONMyReport() async {
 }
 
 Future<List<NotificationRB>> notification() async {
-  final jsonEndpoint =
-      "http://192.168.2.24/LoginRegister/public/api/notification";
+  final jsonEndpoint = url + "api/notification";
 
   final response = await http.post(
     jsonEndpoint,
@@ -48,13 +48,13 @@ Future<List<NotificationRB>> notification() async {
 }
 
 Future<List<Messages>> messages(int id) async {
-  final jsonEndpointwww = "http://192.168.2.24/LoginRegister/public/api/mess";
+  final jsonEndpointwww = url + "api/mess";
   var bodyEncoded = json.encode(id);
   final responsess = await http.post(jsonEndpointwww, body: {
     "id": bodyEncoded,
   });
   print(id);
-  if (responsess.statusCode == 205) {
+  if (responsess.statusCode == 200) {
     List message = json.decode(responsess.body);
     return message.map((message) => new Messages.fromJson(message)).toList();
   } else

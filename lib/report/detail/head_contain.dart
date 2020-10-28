@@ -1,3 +1,5 @@
+import 'package:Help_Desk/constrain.dart';
+
 class Report {
   final int id;
   final String title;
@@ -39,7 +41,7 @@ class Report {
       create: jsonData['createreport'].toString(),
       solve: jsonData['solve'],
       completed: jsonData['completed'],
-      imageUrl: "http://192.168.2.24/public/File/File_img/" + jsonData['image'],
+      imageUrl: url + "File/File_img/" + jsonData['image'],
     );
   }
 }

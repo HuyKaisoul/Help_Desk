@@ -46,8 +46,7 @@ class _AddScreenState extends State<AddScreen> {
   }
 
   Future uploadImage() async {
-    final uri =
-        Uri.parse("http://192.168.2.24/LoginRegister/public/api/upreport");
+    final uri = Uri.parse(url + "api/upreport");
     var request = http.MultipartRequest('POST', uri);
     request.fields['username'] = await FlutterSession().get("username");
     request.fields['address'] = addressController.text;
@@ -55,7 +54,9 @@ class _AddScreenState extends State<AddScreen> {
     request.fields['title'] = titleController.text;
     var pic = await http.MultipartFile.fromPath("image", imageFile.path);
     request.files.add(pic);
+
     var response = await request.send();
+    // (body.body);
     if (response.statusCode == 200) {
       showDialog(
           context: context,
