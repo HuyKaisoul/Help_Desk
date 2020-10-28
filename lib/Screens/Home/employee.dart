@@ -35,7 +35,7 @@ class _State extends State<Employee> {
   }
 
   setUpTimedFetch() {
-    Timer.periodic(Duration(milliseconds: 2000), (timer) {
+    Timer.periodic(Duration(milliseconds: 4000), (timer) {
       setState(() {
         _future = notification();
       });

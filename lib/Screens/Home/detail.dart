@@ -45,16 +45,15 @@ class _SecondScreenState extends State<SecondScreen> {
   TextEditingController controllersend = TextEditingController();
   Future<List<Report>> send(int id, String text) async {
     var bodyEncoded = json.encode(id);
-    var bodytext = json.encode(text);
+
     var bodytype = json.encode(await FlutterSession().get("type"));
-    final response = await http
-        .post("http://192.168.2.24/LoginRegister/public/api/sendmess", body: {
-      "contains": bodytext,
+    final response = await http.post(url + "api/sendmess", body: {
+      "contains": text,
       "type": bodytype,
       "id": bodyEncoded,
     });
 
-    if (response.body == "Success") {
+    if (response.body == '0') {
       controllersend.clear();
     }
   }
@@ -63,12 +62,10 @@ class _SecondScreenState extends State<SecondScreen> {
     var bodyEncoded = json.encode(id);
     var bodySolu = json.encode(text);
     print(text);
-    final response = await http.post(
-        "http://192.168.2.24/LoginRegister/public/api/postsolution",
-        body: {
-          "id": bodyEncoded,
-          "solution": bodySolu,
-        });
+    final response = await http.post(url + "api/postsolution", body: {
+      "id": bodyEncoded,
+      "solution": bodySolu,
+    });
     print(response.body);
 
     if (response.body == "1") {
@@ -119,8 +116,7 @@ class _SecondScreenState extends State<SecondScreen> {
 
   Future<List<Report>> accept(int id) async {
     var bodyEncoded = json.encode(id);
-    final response = await http
-        .post("http://192.168.2.24/LoginRegister/public/api/acreport", body: {
+    final response = await http.post(url + "api/acreport", body: {
       "id": bodyEncoded,
     });
     print(response.body);
@@ -173,8 +169,7 @@ class _SecondScreenState extends State<SecondScreen> {
 
   Future<List<Messages>> close(int id) async {
     var bodyEncoded = json.encode(id);
-    final response = await http
-        .post("http://192.168.2.24/LoginRegister/public/api/clreport", body: {
+    final response = await http.post(url + "api/clreport", body: {
       "id": bodyEncoded,
     });
     print(response.body);

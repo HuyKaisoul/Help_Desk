@@ -29,8 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<List> _login() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final response = await http
-        .post("http://192.168.2.24/LoginRegister/public/api/report", body: {
+    final response = await http.post(url + "api/report", body: {
       "username": userController.text,
       "password": passController.text,
     });
@@ -62,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ImageProvider backgroundImage = AssetImage("asset/img/login.jpg");
+    ImageProvider backgroundImage = AssetImage("asset/img/background.png");
     backgroundImage.resolve(createLocalImageConfiguration(context));
     return Scaffold(
       resizeToAvoidBottomInset: false,

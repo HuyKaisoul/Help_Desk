@@ -12,3 +12,5 @@ const kPrimaryGray = Color(0xfff0ede9);
 
 const kPrimaryBlue = Color(0xffaeccfc);
 const Color kPrimaryNone = Color(0x00000000);
+
+const url = "http://192.168.43.75/LoginRegister/public/";

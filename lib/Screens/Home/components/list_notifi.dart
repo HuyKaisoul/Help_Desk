@@ -9,9 +9,9 @@ class ListNot extends StatelessWidget {
   ListNot(this.notifi);
 
   Future<String> getNotifi(int status) async {
-    String type = await FlutterSession().get("type");
+    int type = await FlutterSession().get("type");
     print(status);
-    if (type == '0') {
+    if (type == 0) {
       if (status == 0) {
         return "notifipost".tr().toString();
       } else if (status == 1) {
@@ -21,7 +21,7 @@ class ListNot extends StatelessWidget {
       } else {
         return 'notififix'.tr().toString();
       }
-    } else if (type == '1') {
+    } else if (type == 1) {
       if (status == 1) {
         return 'notifiapptech'.tr().toString();
       } else if (status == 2) {
